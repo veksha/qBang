@@ -1,0 +1,19 @@
+qBang
+
+Author: Yuriy Balyuk aka veksha
+e-mail: veksho@gmail.com
+==============================================================================
+
+"Bang! is a wild west-themed card game similar to a spaghetti western
+designed by Emiliano Sciarra and released by Italian publisher daVinci
+Editrice in 2002. In 2004, Bang! won the Origins Award for Best Traditional
+Card Game of 2003 and Best Graphic Design of a Card Game or Expansion.
+
+The game is known worldwide as Bang!, except in France where it is known
+as Wanted!."
+(c) Wikipedia.org
+==============================================================================
+
+This project aims to create a computer version
+of this game by using Nokia Qt framework.
+
