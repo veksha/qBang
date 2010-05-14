@@ -64,3 +64,4 @@ void MainWindow::onMouseMove(QMouseEvent *event)
                     .arg(pos.x())
                     .arg(pos.y()) );
 }
+

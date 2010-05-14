@@ -5,6 +5,7 @@
 #include <QGraphicsScene>
 #include <QParallelAnimationGroup>
 #include <QPropertyAnimation>
+#include <QMessageBox>
 #include <QMouseEvent>
 
 #include "card.h"
