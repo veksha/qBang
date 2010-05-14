@@ -6,7 +6,7 @@ Logic::Logic(): QObject()
     loadCards();
 }
 
-void Logic::createPlayer(const QString &name, const int id)
+Player* Logic::createPlayer(const QString &name, const int id)
 {
     Player *player = new Player(name, id, id == 1);
     players.append(player);
@@ -20,6 +20,8 @@ void Logic::createPlayer(const QString &name, const int id)
         renderer->addPlayer(player, QPointF(renderer->scene.width()/2, renderer->scene.height()-50));
         break;
     }
+
+    return player;
 }
 
 void Logic::loadCards()

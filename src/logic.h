@@ -15,7 +15,7 @@ class Logic: public QObject
     Q_OBJECT
 public:
     Logic();
-    void createPlayer(const QString &name, const int id);
+    Player* createPlayer(const QString &name, const int id);
     Renderer *renderer;
 
     QList<Player*> players;
