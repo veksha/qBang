@@ -43,15 +43,24 @@ void MainWindow::createActions()
 void MainWindow::initializeLogic()
 {
     logic = new Logic();
-    connect(logic->renderer, SIGNAL(onClick()), this, SLOT(onClick()));
+    connect(logic->renderer, SIGNAL(onClick(QMouseEvent*)), this, SLOT(onClick(QMouseEvent*)));
+    connect(logic->renderer, SIGNAL(onMouseMove(QMouseEvent*)), this, SLOT(onMouseMove(QMouseEvent*)));
+
     setCentralWidget(logic->renderer);
 
     logic->createPlayer("yura", 1);
     logic->createPlayer("vova", 2);
 }
 
-void MainWindow::onClick()
+void MainWindow::onClick(QMouseEvent *event)
 {
 
 }
 
+void MainWindow::onMouseMove(QMouseEvent *event)
+{
+    QPointF pos = logic->renderer->mapToScene(event->pos());
+    setWindowTitle( QString("x = %1, y = %2")
+                    .arg(pos.x())
+                    .arg(pos.y()) );
+}

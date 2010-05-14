@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QDebug>
+#include <QMouseEvent>
 
 #include "logic.h"
 
@@ -30,7 +31,9 @@ private:
 
 public slots:
     void initializeLogic();
-    void onClick();
+    void onClick(QMouseEvent *);
+    void onMouseMove(QMouseEvent *);
+
 };
 
 #endif // MAINWINDOW_H

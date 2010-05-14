@@ -5,6 +5,8 @@
 #include <QGraphicsScene>
 #include <QParallelAnimationGroup>
 #include <QPropertyAnimation>
+#include <QMouseEvent>
+
 #include "card.h"
 #include "player.h"
 
@@ -21,9 +23,11 @@ public:
     void moveCard(Card *card, QPointF to);
     void moveCard(Card *card, QPointF from, QPointF to);
 private:
-    void mousePressEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent *event) { emit onClick(event); }
+    void mouseMoveEvent(QMouseEvent *event) { emit onMouseMove(event); }
 signals:
-    void onClick();
+    void onClick(QMouseEvent *event);
+    void onMouseMove(QMouseEvent *event);
 protected:
     void resizeEvent(QResizeEvent *event)
     {

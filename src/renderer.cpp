@@ -11,11 +11,6 @@ Renderer::Renderer()
     scene.addRect(0,0,scene.width(), scene.height());
 }
 
-void Renderer::mousePressEvent(QMouseEvent *)
-{
-    emit onClick();
-}
-
 void Renderer::addPlayer(Player *player, QPointF position)
 {
     player->setPos(position);
