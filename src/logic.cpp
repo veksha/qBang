@@ -64,6 +64,7 @@ void Logic::takeAllCards()
 void Logic::dealTheCards()
 {
     takeAllCards();
+    shuffleTheTalon();
 
     // deal the cards to players
     foreach ( Player *player, players )
@@ -77,4 +78,18 @@ void Logic::dealTheCards()
         }
         player->refreshText();
     }
+}
+
+void Logic::shuffleTheTalon()
+{
+    QStack<Card*> tmp;
+    QStack<Card*>::iterator i = talon.begin();
+
+    do
+    {
+        tmp.insert( qrand() % (tmp.size()+1), *i );
+        i++;
+    }
+    while ( i != talon.end() );
+    talon = tmp;
 }
