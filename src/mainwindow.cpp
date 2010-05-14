@@ -49,7 +49,7 @@ void MainWindow::initializeLogic()
     setCentralWidget(logic->renderer);
 
     logic->createPlayer("yura", 1);
-    logic->createPlayer("vova", 2);
+    logic->createPlayer("vova", 2)->setHealth(5);
 }
 
 void MainWindow::onClick(QMouseEvent *event)

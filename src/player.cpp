@@ -2,7 +2,12 @@
 
 void Player::refreshText()
 {
-    setHtml(QString("%1 (%2 cards, %3 hp)%4").arg(name).arg(cards.count()).arg(health).arg(isYou?" You":""));
+    setHtml( QString("%1 (%2 cards, %3/%4 hp)%5")
+             .arg(name)
+             .arg(cards.count())
+             .arg(health)
+             .arg(maxHealth)
+             .arg(isYou ? " You" : "") );
 }
 
 void Player::giveCard(Card * card)

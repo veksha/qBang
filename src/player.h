@@ -13,15 +13,28 @@ public:
     Player(const QString &name, const int id, bool isYou = false)
         :QGraphicsTextItem(name)
     {
+        QFont font;
+        font.setPointSize(16);
+        setFont(font);
+
         this->name = name;
         this->id = id;
         this->isYou = isYou;
         maxHealth = 4;
-        health =  maxHealth;
+        setHealth(maxHealth);
+    }
 
-        QFont font;
-        font.setPointSize(16);
-        setFont(font);
+    int health;
+    void setHealth(int h) {
+        health = h;
+        if (health > maxHealth) maxHealth = health;
+        refreshText();
+    }
+
+    int maxHealth;
+    void setMaxHealth(int h) {
+        maxHealth = h;
+        if (health > maxHealth) health = maxHealth;
         refreshText();
     }
 
@@ -35,9 +48,9 @@ public:
     QList<Card*> cards;
     //int role;
     //int character;
-    int maxHealth;
-    int health;
     bool isYou;
+private:
+
 };
 
 #endif // PLAYER_H
