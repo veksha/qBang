@@ -42,7 +42,7 @@ void Logic::loadCards()
     foreach( Card *card, cards.values() )
     {
         renderer->addCard( card, QPointF() );
-        stack.push( card );
+        talon.push( card );
     }
 }
 
@@ -53,8 +53,8 @@ void Logic::takeAllCards()
     {
         while ( !player->cards.isEmpty() )
         {
-            Card * card = player->TakeFirstCard();
-            stack.push( card );
+            Card * card = player->takeLastCard();
+            talon.push( card );
             renderer->moveCard( card, QPointF() );
         }
         player->refreshText();
@@ -68,12 +68,12 @@ void Logic::dealTheCards()
     // deal the cards to players
     foreach ( Player *player, players )
     {
-        while ( !stack.isEmpty() && ( player->cards.count() < player->maxHealth) )
+        while ( !talon.isEmpty() && ( player->cards.count() < player->maxHealth) )
         {
-            renderer->moveCard( stack.top(),
+            renderer->moveCard( talon.top(),
                 QPointF(300 + player->cards.count() * 80 + qrand() % 20,
                         player->id * 200 + qrand() % 20) );
-            player->GiveCard( stack.pop() );
+            player->giveCard( talon.pop() );
         }
         player->refreshText();
     }

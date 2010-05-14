@@ -26,9 +26,9 @@ public:
     }
 
     void refreshText();
-    void GiveCard(Card* card);
-    Card * TakeCard(Card* card);
-    Card * TakeFirstCard();
+    void giveCard(Card* card);
+    Card * takeCard(Card* card);
+    Card * takeLastCard();
 
     int id;
     QString name;

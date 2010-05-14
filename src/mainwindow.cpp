@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     setWindowState(Qt::WindowMaximized);
 
-    Initialize();
+    initializeLogic();
     createActions();
 }
 
@@ -40,7 +40,7 @@ void MainWindow::createActions()
     ui->mainToolBar->addAction(takeAllCardsAct);
 }
 
-void MainWindow::Initialize()
+void MainWindow::initializeLogic()
 {
     logic = new Logic();
     connect(logic->renderer, SIGNAL(onClick()), this, SLOT(onClick()));
@@ -48,10 +48,10 @@ void MainWindow::Initialize()
 
     logic->createPlayer("yura", 1);
     logic->createPlayer("vova", 2);
-    //logic->DealTheCards();
 }
 
 void MainWindow::onClick()
 {
-    logic->takeAllCards();
+
 }
+

@@ -5,18 +5,18 @@ void Player::refreshText()
     setHtml(QString("%1 (%2 cards, %3 hp)%4").arg(name).arg(cards.count()).arg(health).arg(isYou?" You":""));
 }
 
-void Player::GiveCard(Card * card)
+void Player::giveCard(Card * card)
 {
     cards.append(card);
 }
 
-Card * Player::TakeCard(Card * card)
+Card * Player::takeCard(Card * card)
 {
     cards.removeOne(card);
     return card;
 }
 
-Card * Player::TakeFirstCard()
+Card * Player::takeLastCard()
 {
-    return cards.takeFirst();
+    return cards.takeLast();
 }

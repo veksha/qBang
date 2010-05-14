@@ -20,7 +20,7 @@ public:
 
     QList<Player*> players;
     QHash<QString,Card*> cards;
-    QStack<Card*> stack;
+    QStack<Card*> talon;
 
 public slots:
     void dealTheCards();

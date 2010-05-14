@@ -29,7 +29,7 @@ private:
     QAction *takeAllCardsAct;
 
 public slots:
-    void Initialize();
+    void initializeLogic();
     void onClick();
 };
 
