@@ -3,8 +3,7 @@ TARGET =
 DEPENDPATH += . \
     src \
     src\ui
-INCLUDEPATH += . \
-    src\ui
+INCLUDEPATH += .
 
 # Input
 HEADERS += src/ui/card.h \

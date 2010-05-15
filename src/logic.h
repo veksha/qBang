@@ -6,9 +6,9 @@
 #include <QStack>
 #include <QTimer>
 
-#include "card.h"
-#include "renderer.h"
-#include "player.h"
+#include "ui/card.h"
+#include "ui/renderer.h"
+#include "ui/player.h"
 
 const qreal MaxCardHeight = 100;
 
