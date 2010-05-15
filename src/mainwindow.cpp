@@ -36,7 +36,7 @@ void MainWindow::createActions()
     ui->mainToolBar->addAction(dealTheCardsAct);
 
     takeAllCardsAct = new QAction("Take all Cards", this);
-    connect( takeAllCardsAct, SIGNAL( triggered() ), logic, SLOT( takeAllCards() ) );
+    connect( takeAllCardsAct, SIGNAL( triggered() ), logic, SLOT( takeAllCardsFromPlayers() ) );
     ui->mainToolBar->addAction(takeAllCardsAct);
 }
 
