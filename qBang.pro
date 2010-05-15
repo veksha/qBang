@@ -11,10 +11,11 @@ HEADERS += src/ui/card.h \
     src/ui/player.h \
     src/mainwindow.h \
     src/logic.h
-    
 FORMS += src/mainwindow.ui
 SOURCES += src/main.cpp \
     src/mainwindow.cpp \
     src/logic.cpp \
-    src/ui/renderer.cpp \    
+    src/ui/renderer.cpp \
     src/ui/player.cpp
+OTHER_FILES += 
+RESOURCES += qBang.qrc

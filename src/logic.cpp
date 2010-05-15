@@ -37,15 +37,15 @@ void Logic::loadCards()
 
     // write settings
     for (int i = 1; i <= 15; i++)
-        settings.setValue("bang" + QString::number(i), "c:\\bang.png");
+        settings.setValue("bang" + QString::number(i), ":/res/bang.png");
     for (int i = 1; i <= 15; i++)
-        settings.setValue("miss" + QString::number(i), "c:\\miss.png");
+        settings.setValue("miss" + QString::number(i), ":/res/miss.png");
 
     // read settings
     QStringList keys = settings.childKeys();
     for (int i = 0; i < keys.count(); i++)
         cards[keys.at(i)] = new Card( keys.at(i),
-            QPixmap(settings.value(keys.at(i), "c:\\bang.png").toString()) );
+                                      QPixmap(settings.value(keys.at(i), ":/res/bang.png").toString()) );
 
     settings.endGroup();
 

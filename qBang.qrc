@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/bang.png</file>
+        <file>res/miss.png</file>
+    </qresource>
+</RCC>
