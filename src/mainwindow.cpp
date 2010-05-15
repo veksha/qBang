@@ -52,7 +52,7 @@ void MainWindow::initializeLogic()
     logic->createPlayer("vova", 2)->setHealth(5);
 }
 
-void MainWindow::onClick(QMouseEvent *event)
+void MainWindow::onClick(QMouseEvent * /*event*/)
 {
 
 }

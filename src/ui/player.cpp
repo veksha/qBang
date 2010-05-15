@@ -10,7 +10,7 @@ void Player::refreshText()
              .arg(isYou ? " You" : "") );
 }
 
-void Player::giveCard(Card * card)
+void Player::appendCard(Card * card)
 {
     cards.append(card);
 }

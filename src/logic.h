@@ -10,12 +10,15 @@
 #include "renderer.h"
 #include "player.h"
 
+const qreal MaxCardHeight = 100;
+
 class Logic: public QObject
 {
     Q_OBJECT
 public:
     Logic();
     Player* createPlayer(const QString &name, const int id);
+    void giveCard(Player *player, Card* card);
     Renderer *renderer;
 
     QList<Player*> players;
@@ -24,7 +27,7 @@ public:
 
 public slots:
     void dealTheCards();
-    void takeAllCards();
+    void takeAllCardsFromPlayers();
     void shuffleTheTalon();
 
 private:

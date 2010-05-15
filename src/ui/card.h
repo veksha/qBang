@@ -13,6 +13,8 @@ public:
         setCacheMode(DeviceCoordinateCache);
         this->name = name;
     }
+    int height() const { return pixmap().height(); }
+    int width() const { return pixmap().width(); }
 
     QString name;
 };

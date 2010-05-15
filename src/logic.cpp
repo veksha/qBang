@@ -14,10 +14,16 @@ Player* Logic::createPlayer(const QString &name, const int id)
     switch (id)
     {
     case 1:
-        renderer->addPlayer(player, QPointF(renderer->scene.width()/2, 0));
+        renderer->addPlayer( player, QPointF(renderer->scene.width()/2,
+                                             0) );
+        player->cardsPos = QPointF( player->pos().x(),
+                                    player->pos().y() + player->font().pointSizeF() + 20 );
         break;
     case 2:
-        renderer->addPlayer(player, QPointF(renderer->scene.width()/2, renderer->scene.height()-50));
+        renderer->addPlayer( player, QPointF(renderer->scene.width()/2,
+                                             renderer->scene.height()-50) );
+        player->cardsPos = QPointF( player->pos().x(),
+                                    player->pos().y() - MaxCardHeight );
         break;
     }
 
@@ -29,11 +35,13 @@ void Logic::loadCards()
     QSettings settings(QSettings::IniFormat, QSettings::UserScope, "qBang", "settings");
     settings.beginGroup("cards");
 
-//    for (int i = 1; i <= 15; i++)
-//        settings.setValue("bang" + QString::number(i), "c:\\bang.png");
-//    for (int i = 1; i <= 15; i++)
-//        settings.setValue("miss" + QString::number(i), "c:\\miss.png");
+    // write settings
+    for (int i = 1; i <= 15; i++)
+        settings.setValue("bang" + QString::number(i), "c:\\bang.png");
+    for (int i = 1; i <= 15; i++)
+        settings.setValue("miss" + QString::number(i), "c:\\miss.png");
 
+    // read settings
     QStringList keys = settings.childKeys();
     for (int i = 0; i < keys.count(); i++)
         cards[keys.at(i)] = new Card( keys.at(i),
@@ -41,6 +49,7 @@ void Logic::loadCards()
 
     settings.endGroup();
 
+    // fill talon with cards
     foreach( Card *card, cards.values() )
     {
         renderer->addCard( card, QPointF() );
@@ -48,7 +57,7 @@ void Logic::loadCards()
     }
 }
 
-void Logic::takeAllCards()
+void Logic::takeAllCardsFromPlayers()
 {
     // take cards from all players
     foreach ( Player *player, players )
@@ -65,19 +74,15 @@ void Logic::takeAllCards()
 
 void Logic::dealTheCards()
 {
-    takeAllCards();
+    // no comments :)
+    takeAllCardsFromPlayers();
     shuffleTheTalon();
 
     // deal the cards to players
     foreach ( Player *player, players )
     {
         while ( !talon.isEmpty() && ( player->cards.count() < player->maxHealth) )
-        {
-            renderer->moveCard( talon.top(),
-                QPointF(300 + player->cards.count() * 80 + qrand() % 20,
-                        player->id * 200 + qrand() % 20) );
-            player->giveCard( talon.pop() );
-        }
+            giveCard( player, talon.pop() );
         player->refreshText();
     }
 }
@@ -95,3 +100,10 @@ void Logic::shuffleTheTalon()
     while ( i != talon.end() );
     talon = tmp;
 }
+
+void Logic::giveCard(Player *player, Card* card)
+{
+    player->appendCard( card );
+    renderer->arrangeCards( player->cards, player->cardsPos );
+}
+

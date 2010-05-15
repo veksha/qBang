@@ -43,3 +43,26 @@ void Renderer::moveCard(Card *card, QPointF from, QPointF to)
     animations[card]->start();
 }
 
+void Renderer::arrangeCards(QList<Card *>cards, QPointF topCenter)
+{
+    const qreal spacing = -25;
+    qreal totalWidth = 0;
+
+    foreach(Card *card, cards)
+        totalWidth += card->width();
+    totalWidth += spacing * (cards.count() - 1);
+
+    // leftmost start point
+    int x = topCenter.x() - totalWidth / 2;
+
+    for(int i = 0; i < cards.count(); i++)
+    {
+        Card *card = cards.at(i);
+
+        card->setZValue(-i);
+        moveCard(card, QPointF(x, topCenter.y()));
+
+        x += card->width() + spacing;
+    }
+}
+

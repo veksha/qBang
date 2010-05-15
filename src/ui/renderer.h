@@ -6,6 +6,7 @@
 #include <QParallelAnimationGroup>
 #include <QPropertyAnimation>
 #include <QMessageBox>
+#include <QDebug>
 #include <QMouseEvent>
 
 #include "card.h"
@@ -23,6 +24,7 @@ public:
     void addPlayer(Player *player, QPointF position);
     void moveCard(Card *card, QPointF to);
     void moveCard(Card *card, QPointF from, QPointF to);
+    void arrangeCards(QList<Card *>cards, QPointF center);
 private:
     void mousePressEvent(QMouseEvent *event) { emit onClick(event); }
     void mouseMoveEvent(QMouseEvent *event) { emit onMouseMove(event); }

@@ -39,7 +39,7 @@ public:
     }
 
     void refreshText();
-    void giveCard(Card* card);
+    void appendCard(Card* card);
     Card * takeCard(Card* card);
     Card * takeLastCard();
 
@@ -49,8 +49,7 @@ public:
     //int role;
     //int character;
     bool isYou;
-private:
-
+    QPointF cardsPos;
 };
 
 #endif // PLAYER_H
