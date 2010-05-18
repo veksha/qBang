@@ -62,11 +62,11 @@ void Logic::takeAllCardsFromPlayers()
     // take cards from all players
     foreach ( Player *player, players )
     {
+        renderer->beautifulMove( player->cards, QPointF() );
         while ( !player->cards.isEmpty() )
         {
             Card * card = player->takeLastCard();
             talon.push( card );
-            renderer->moveCard( card, QPointF() );
         }
         player->refreshText();
     }

@@ -48,8 +48,8 @@ void MainWindow::initializeLogic()
 
     setCentralWidget(logic->renderer);
 
-    logic->createPlayer("yura", 1);
-    logic->createPlayer("vova", 2)->setHealth(5);
+    logic->createPlayer("yura", 1)->setHealth(5);
+    logic->createPlayer("vova", 2)->setHealth(4);
 }
 
 void MainWindow::onClick(QMouseEvent * /*event*/)

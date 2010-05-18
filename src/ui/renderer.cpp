@@ -43,10 +43,43 @@ void Renderer::moveCard(Card *card, QPointF from, QPointF to)
     animations[card]->start();
 }
 
+void Renderer::beautifulMove(QList<Card *> &cards, QPointF &to)
+{
+    QParallelAnimationGroup *parallel = new QParallelAnimationGroup();
+
+    for(int i = 0; i < cards.count(); i++)
+    {
+        Card* card = cards.at(i);
+        QSequentialAnimationGroup *seq = new QSequentialAnimationGroup(parallel);
+        seq->addPause( (i+1) * 100 );
+        animations[card]->setStartValue(card->pos());
+        animations[card]->setEndValue(to);
+        seq->addAnimation(animations[card]);
+    }
+    parallel->start();
+}
+
+void Renderer::beautifulMove(QList<Card *> &cards, QList<QPointF> &to)
+{
+    QParallelAnimationGroup *parallel = new QParallelAnimationGroup();
+
+    for(int i = 0; i < cards.count(); i++)
+    {
+        Card* card = cards.at(i);
+        QSequentialAnimationGroup *seq = new QSequentialAnimationGroup(parallel);
+        seq->addPause( (i+1) * 100 );
+        animations[card]->setStartValue(card->pos());
+        animations[card]->setEndValue(to.at(i));
+        seq->addAnimation(animations[card]);
+    }
+    parallel->start();
+}
+
 void Renderer::arrangeCards(QList<Card *>cards, QPointF topCenter)
 {
     const qreal spacing = -25;
     qreal totalWidth = 0;
+    QList<QPointF> positions;
 
     foreach(Card *card, cards)
         totalWidth += card->width();
@@ -60,9 +93,10 @@ void Renderer::arrangeCards(QList<Card *>cards, QPointF topCenter)
         Card *card = cards.at(i);
 
         card->setZValue(-i);
-        moveCard(card, QPointF(x, topCenter.y()));
+        positions.append(QPointF(x, topCenter.y()));
 
         x += card->width() + spacing;
     }
+    beautifulMove(cards, positions);
 }
 
