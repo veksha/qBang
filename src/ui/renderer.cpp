@@ -38,6 +38,7 @@ void Renderer::moveCard(Card *card, QPointF to)
 
 void Renderer::moveCard(Card *card, QPointF from, QPointF to)
 {
+    animations[card]->stop();
     animations[card]->setStartValue(from);
     animations[card]->setEndValue(to);
     animations[card]->start();
@@ -52,6 +53,7 @@ void Renderer::beautifulMove(QList<Card *> &cards, QPointF &to)
         Card* card = cards.at(i);
         QSequentialAnimationGroup *seq = new QSequentialAnimationGroup(parallel);
         seq->addPause( (i+1) * 100 );
+        animations[card]->stop();
         animations[card]->setStartValue(card->pos());
         animations[card]->setEndValue(to);
         seq->addAnimation(animations[card]);
@@ -68,6 +70,7 @@ void Renderer::beautifulMove(QList<Card *> &cards, QList<QPointF> &to)
         Card* card = cards.at(i);
         QSequentialAnimationGroup *seq = new QSequentialAnimationGroup(parallel);
         seq->addPause( (i+1) * 100 );
+        animations[card]->stop();
         animations[card]->setStartValue(card->pos());
         animations[card]->setEndValue(to.at(i));
         seq->addAnimation(animations[card]);
