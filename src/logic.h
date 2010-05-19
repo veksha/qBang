@@ -19,6 +19,7 @@ public:
     Logic();
     Player* createPlayer(const QString &name, const int id);
     void giveCard(Player *player, Card* card);
+    void selectCardAt(QPointF &pos);
     Renderer *renderer;
 
     QList<Player*> players;

@@ -52,9 +52,10 @@ void MainWindow::initializeLogic()
     logic->createPlayer("vova", 2)->setHealth(4);
 }
 
-void MainWindow::onClick(QMouseEvent * /*event*/)
+void MainWindow::onClick(QMouseEvent * event)
 {
-
+    QPointF pos = logic->renderer->mapToScene(event->pos());
+    logic->selectCardAt(pos);
 }
 
 void MainWindow::onMouseMove(QMouseEvent *event)

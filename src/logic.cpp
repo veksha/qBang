@@ -107,3 +107,27 @@ void Logic::giveCard(Player *player, Card* card)
     renderer->arrangeCards( player->cards, player->cardsPos );
 }
 
+void Logic::selectCardAt(QPointF &pos)
+{
+    QList<QGraphicsItem *> items = renderer->scene.items(pos);
+
+    foreach (QGraphicsItem *item, items)
+    {
+        Card *card = qgraphicsitem_cast<Card *>(item);
+        if (card)
+        {
+            qDebug() << card->name;
+
+            // TODO: implement selecting animation
+            QPointF newPos = QPointF( card->pos().x(), card->pos().y() - 10 );
+            renderer->moveCard(card, newPos);
+            break;
+        }
+        else
+        {
+            qDebug() << "no card";
+
+            // TODO: implement deselecting animation
+        }
+    }
+}
