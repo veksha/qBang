@@ -48,15 +48,40 @@ void Renderer::beautifulMove(QList<Card *> &cards, QPointF &to)
 {
     QParallelAnimationGroup *parallel = new QParallelAnimationGroup();
 
+    int c = 0;
     for(int i = 0; i < cards.count(); i++)
     {
         Card* card = cards.at(i);
-        QSequentialAnimationGroup *seq = new QSequentialAnimationGroup(parallel);
-        seq->addPause( (i+1) * 100 );
-        animations[card]->stop();
-        animations[card]->setStartValue(card->pos());
-        animations[card]->setEndValue(to);
-        seq->addAnimation(animations[card]);
+        if ( card->pos() != to )
+        {
+            QSequentialAnimationGroup *seq = new QSequentialAnimationGroup(parallel);
+            seq->addPause( (c++) * 100 );
+            animations[card]->stop();
+            animations[card]->setStartValue(card->pos());
+            animations[card]->setEndValue(to);
+            seq->addAnimation(animations[card]);
+        }
+    }
+    parallel->start();
+}
+
+void Renderer::beautifulMove(QStack<Card *> &cards, QPointF &to)
+{
+    QParallelAnimationGroup *parallel = new QParallelAnimationGroup();
+
+    int c = 0;
+    for(int i = 0; i < cards.count(); i++)
+    {
+        Card* card = cards.at(i);
+        if ( card->pos() != to )
+        {
+            QSequentialAnimationGroup *seq = new QSequentialAnimationGroup(parallel);
+            seq->addPause( (c++) * 100 );
+            animations[card]->stop();
+            animations[card]->setStartValue(card->pos());
+            animations[card]->setEndValue(to);
+            seq->addAnimation(animations[card]);
+        }
     }
     parallel->start();
 }
@@ -65,15 +90,19 @@ void Renderer::beautifulMove(QList<Card *> &cards, QList<QPointF> &to)
 {
     QParallelAnimationGroup *parallel = new QParallelAnimationGroup();
 
+    int c = 0;
     for(int i = 0; i < cards.count(); i++)
     {
-        Card* card = cards.at(i);
-        QSequentialAnimationGroup *seq = new QSequentialAnimationGroup(parallel);
-        seq->addPause( (i+1) * 100 );
-        animations[card]->stop();
-        animations[card]->setStartValue(card->pos());
-        animations[card]->setEndValue(to.at(i));
-        seq->addAnimation(animations[card]);
+            Card* card = cards.at(i);
+            if ( card->pos() != to.at(i) )
+            {
+            QSequentialAnimationGroup *seq = new QSequentialAnimationGroup(parallel);
+            seq->addPause( (c++) * 100 );
+            animations[card]->stop();
+            animations[card]->setStartValue(card->pos());
+            animations[card]->setEndValue(to.at(i));
+            seq->addAnimation(animations[card]);
+        }
     }
     parallel->start();
 }

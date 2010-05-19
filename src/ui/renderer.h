@@ -9,6 +9,7 @@
 #include <QMessageBox>
 #include <QDebug>
 #include <QMouseEvent>
+#include <QStack>
 
 #include "card.h"
 #include "player.h"
@@ -26,6 +27,7 @@ public:
     void moveCard(Card *card, QPointF to);
     void moveCard(Card *card, QPointF from, QPointF to);
     void beautifulMove(QList<Card *> &cards, QPointF &to);
+    void beautifulMove(QStack<Card *> &cards, QPointF &to);
     void beautifulMove(QList<Card *> &cards, QList<QPointF> &to);
     void arrangeCards(QList<Card *>cards, QPointF center);
 private:

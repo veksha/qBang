@@ -28,7 +28,7 @@ public:
 
 public slots:
     void dealTheCards();
-    void takeAllCardsFromPlayers();
+    void takeAllCards();
     void shuffleTheTalon();
 
 private:

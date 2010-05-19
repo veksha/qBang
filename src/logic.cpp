@@ -57,9 +57,12 @@ void Logic::loadCards()
     }
 }
 
-void Logic::takeAllCardsFromPlayers()
+void Logic::takeAllCards()
 {
-    // take cards from all players
+    // arrange talon if it's scattered
+    renderer->beautifulMove(talon, QPointF());
+
+    // take all cards from players
     foreach ( Player *player, players )
     {
         renderer->beautifulMove( player->cards, QPointF() );
@@ -75,7 +78,7 @@ void Logic::takeAllCardsFromPlayers()
 void Logic::dealTheCards()
 {
     // no comments :)
-    takeAllCardsFromPlayers();
+    takeAllCards();
     shuffleTheTalon();
 
     // deal the cards to players
