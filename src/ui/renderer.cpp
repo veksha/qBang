@@ -44,48 +44,6 @@ void Renderer::moveCard(Card *card, QPointF from, QPointF to)
     animations[card]->start();
 }
 
-void Renderer::beautifulMove(QList<Card *> &cards, QPointF &to)
-{
-    QParallelAnimationGroup *parallel = new QParallelAnimationGroup();
-
-    int c = 0;
-    for(int i = 0; i < cards.count(); i++)
-    {
-        Card* card = cards.at(i);
-        if ( card->pos() != to )
-        {
-            QSequentialAnimationGroup *seq = new QSequentialAnimationGroup(parallel);
-            seq->addPause( (c++) * 100 );
-            animations[card]->stop();
-            animations[card]->setStartValue(card->pos());
-            animations[card]->setEndValue(to);
-            seq->addAnimation(animations[card]);
-        }
-    }
-    parallel->start();
-}
-
-void Renderer::beautifulMove(QStack<Card *> &cards, QPointF &to)
-{
-    QParallelAnimationGroup *parallel = new QParallelAnimationGroup();
-
-    int c = 0;
-    for(int i = 0; i < cards.count(); i++)
-    {
-        Card* card = cards.at(i);
-        if ( card->pos() != to )
-        {
-            QSequentialAnimationGroup *seq = new QSequentialAnimationGroup(parallel);
-            seq->addPause( (c++) * 100 );
-            animations[card]->stop();
-            animations[card]->setStartValue(card->pos());
-            animations[card]->setEndValue(to);
-            seq->addAnimation(animations[card]);
-        }
-    }
-    parallel->start();
-}
-
 void Renderer::beautifulMove(QList<Card *> &cards, QList<QPointF> &to)
 {
     QParallelAnimationGroup *parallel = new QParallelAnimationGroup();
@@ -93,9 +51,9 @@ void Renderer::beautifulMove(QList<Card *> &cards, QList<QPointF> &to)
     int c = 0;
     for(int i = 0; i < cards.count(); i++)
     {
-            Card* card = cards.at(i);
-            if ( card->pos() != to.at(i) )
-            {
+        Card* card = cards.at(i);
+        if ( card->pos() != to.at(i) )
+        {
             QSequentialAnimationGroup *seq = new QSequentialAnimationGroup(parallel);
             seq->addPause( (c++) * 100 );
             animations[card]->stop();
@@ -105,6 +63,30 @@ void Renderer::beautifulMove(QList<Card *> &cards, QList<QPointF> &to)
         }
     }
     parallel->start();
+}
+
+void Renderer::beautifulMove(QList<Card *> &cards, QPointF &to)
+{
+    QList<QPointF> tmp;
+
+    for(int i=0; i < cards.count(); i++)
+        tmp.append(to);
+
+    beautifulMove(cards, tmp);
+}
+
+void Renderer::beautifulMove(QStack<Card *> &cards, QPointF &to)
+{
+    QList<Card *> tmpCards;
+    QList<QPointF> tmpTo;
+
+    foreach(Card *card, cards)
+    {
+        tmpCards.append(card);
+        tmpTo.append(to);
+    }
+
+    beautifulMove(tmpCards, tmpTo);
 }
 
 void Renderer::arrangeCards(QList<Card *>cards, QPointF topCenter)
