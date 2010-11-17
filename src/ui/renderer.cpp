@@ -49,7 +49,7 @@ void Renderer::moveCard(Card *card, QPointF from, QPointF to)
     animations[card]->start();
 }
 
-void Renderer::beautifulMove(QList<Card *> &cards, QList<QPointF> &to)
+void Renderer::beautifulMove(QList<Card *> &cards, QList<QPointF> to)
 {
     int c = 0;
     for(int i = 0; i < cards.count(); i++)
@@ -74,7 +74,7 @@ void Renderer::beautifulMove(QList<Card *> &cards, QList<QPointF> &to)
     }
 }
 
-void Renderer::beautifulMove(QList<Card *> &cards, QPointF &to)
+void Renderer::beautifulMove(QList<Card *> &cards, QPointF to)
 {
     QList<QPointF> tmp;
 
@@ -84,7 +84,7 @@ void Renderer::beautifulMove(QList<Card *> &cards, QPointF &to)
     beautifulMove(cards, tmp);
 }
 
-void Renderer::beautifulMove(QStack<Card *> &cards, QPointF &to)
+void Renderer::beautifulMove(QStack<Card *> &cards, QPointF to)
 {
     QList<Card *> tmpCards;
     QList<QPointF> tmpTo;

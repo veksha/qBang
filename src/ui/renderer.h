@@ -27,9 +27,9 @@ public:
     void addPlayer(Player *player, QPointF position);
     void moveCard(Card *card, QPointF to);
     void moveCard(Card *card, QPointF from, QPointF to);
-    void beautifulMove(QList<Card *> &cards, QPointF &to);
-    void beautifulMove(QStack<Card *> &cards, QPointF &to);
-    void beautifulMove(QList<Card *> &cards, QList<QPointF> &to);
+    void beautifulMove(QList<Card *> &cards, QPointF to);
+    void beautifulMove(QStack<Card *> &cards, QPointF to);
+    void beautifulMove(QList<Card *> &cards, QList<QPointF> to);
     void arrangeCards(QList<Card *>cards, QPointF center);
 private:
     void mousePressEvent(QMouseEvent *event) { emit onClick(event); }
