@@ -17,15 +17,20 @@ void Renderer::addPlayer(Player *player, QPointF position)
     scene.addItem(player);
 }
 
-void Renderer::addCard(Card *card, QPointF position)
+void Renderer::createCardAnimation(Card *card)
 {
-    card->setPos(position);
-    scene.addItem(card);
     QPropertyAnimation *anim = new QPropertyAnimation(card, "pos");
     anim->setDuration(500);
     anim->setEasingCurve(QEasingCurve::InOutSine);
 
     animations[card] = anim;
+}
+
+void Renderer::addCard(Card *card, QPointF position)
+{
+    card->setPos(position);
+    scene.addItem(card);
+    createCardAnimation(card);
 }
 
 void Renderer::moveCard(Card *card, QPointF to)
@@ -46,23 +51,27 @@ void Renderer::moveCard(Card *card, QPointF from, QPointF to)
 
 void Renderer::beautifulMove(QList<Card *> &cards, QList<QPointF> &to)
 {
-    QParallelAnimationGroup *parallel = new QParallelAnimationGroup();
-
     int c = 0;
     for(int i = 0; i < cards.count(); i++)
     {
         Card* card = cards.at(i);
-        if ( card->pos() != to.at(i) )
+        if ( animations[card]->group() )
         {
-            QSequentialAnimationGroup *seq = new QSequentialAnimationGroup(parallel);
+            animations[card]->group()->stop();
+            animations[card]->group()->removeAnimation(animations[card]);
+            delete animations[card]->group();
+        }
+
+        if (card->pos() != to.at(i))
+        {
+            QSequentialAnimationGroup *seq = new QSequentialAnimationGroup();
             seq->addPause( (c++) * 100 );
-            animations[card]->stop();
             animations[card]->setStartValue(card->pos());
             animations[card]->setEndValue(to.at(i));
             seq->addAnimation(animations[card]);
+            seq->start();
         }
     }
-    parallel->start();
 }
 
 void Renderer::beautifulMove(QList<Card *> &cards, QPointF &to)

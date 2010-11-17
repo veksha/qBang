@@ -12,6 +12,7 @@ public:
     {
         setCacheMode(DeviceCoordinateCache);
         this->name = name;
+        setObjectName(name);
     }
     int height() const { return pixmap().height(); }
     int width() const { return pixmap().width(); }

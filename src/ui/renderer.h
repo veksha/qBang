@@ -22,6 +22,7 @@ public:
     QHash<Card*, QPropertyAnimation*> animations;
 
     Renderer();
+    void createCardAnimation(Card *card);
     void addCard(Card *card, QPointF position);
     void addPlayer(Player *player, QPointF position);
     void moveCard(Card *card, QPointF to);

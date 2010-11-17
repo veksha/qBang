@@ -92,15 +92,13 @@ void Logic::dealTheCards()
 
 void Logic::shuffleTheTalon()
 {
+    if (talon.count() == 0) return;
+    
     QStack<Card*> tmp;
-    QStack<Card*>::iterator i = talon.begin();
 
-    do
-    {
-        tmp.insert( qrand() % (tmp.size()+1), *i );
-        i++;
-    }
-    while ( i != talon.end() );
+    foreach(Card* card, talon)
+        tmp.insert( qrand() % (tmp.size()+1), card );
+
     talon = tmp;
 }
 
