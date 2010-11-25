@@ -10,18 +10,18 @@ void Player::refreshText()
              .arg(isYou ? " You" : "") );
 }
 
-void Player::appendCard(Card * card)
+void Player::AppendCard(AbstractCard *card)
 {
     cards.append(card);
 }
 
-Card * Player::takeCard(Card * card)
+AbstractCard * Player::TakeCard(AbstractCard * card)
 {
     cards.removeOne(card);
     return card;
 }
 
-Card * Player::takeLastCard()
+AbstractCard* Player::TakeLastCard()
 {
     return cards.takeLast();
 }

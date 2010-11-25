@@ -13,24 +13,25 @@
 
 #include "card.h"
 #include "player.h"
+#include <include/plugininterface.h>
 
 class Renderer : public QGraphicsView
 {
     Q_OBJECT
 public:
     QGraphicsScene scene;
-    QHash<Card*, QPropertyAnimation*> animations;
+    QHash<AbstractCard*, QPropertyAnimation*> animations;
 
     Renderer();
-    void createCardAnimation(Card *card);
-    void addCard(Card *card, QPointF position);
-    void addPlayer(Player *player, QPointF position);
-    void moveCard(Card *card, QPointF to);
-    void moveCard(Card *card, QPointF from, QPointF to);
-    void beautifulMove(QList<Card *> &cards, QPointF to);
-    void beautifulMove(QStack<Card *> &cards, QPointF to);
-    void beautifulMove(QList<Card *> &cards, QList<QPointF> to);
-    void arrangeCards(QList<Card *>cards, QPointF center);
+    void createCardAnimation(AbstractCard *card);
+    void addCard(AbstractCard *card, QPointF position);
+    void addPlayer(AbstractPlayer *player, QPointF position);
+    void moveCard(AbstractCard *card, QPointF to);
+    void moveCard(AbstractCard *card, QPointF from, QPointF to);
+    void beautifulMove(QList<AbstractCard *> *cards, QPointF to);
+    void beautifulMove(QStack<AbstractCard *> *cards, QPointF to);
+    void beautifulMove(QList<AbstractCard *> *cards, QList<QPointF> to);
+    void arrangeCards(QList<AbstractCard *> *cards, QPointF center);
 private:
     void mousePressEvent(QMouseEvent *event) { emit onClick(event); }
     void mouseMoveEvent(QMouseEvent *event) { emit onMouseMove(event); }

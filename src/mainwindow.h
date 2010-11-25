@@ -5,7 +5,8 @@
 #include <QDebug>
 #include <QMouseEvent>
 
-#include "logic.h"
+#include "src/cardgameengine.h"
+#include "pluginsystem.h"
 
 namespace Ui {
     class MainWindow;
@@ -17,7 +18,8 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    Logic *logic;
+    PluginSystem pluginSystem;
+    CardGameEngine *engine;
 
 protected:
     void changeEvent(QEvent *e);
@@ -34,6 +36,8 @@ public slots:
     void onClick(QMouseEvent *);
     void onMouseMove(QMouseEvent *);
 
+private slots:
+    void AppendLog(const QString &line);
 };
 
 #endif // MAINWINDOW_H

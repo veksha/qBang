@@ -11,37 +11,37 @@ Renderer::Renderer()
     scene.addRect(0,0,scene.width(), scene.height());
 }
 
-void Renderer::addPlayer(Player *player, QPointF position)
+void Renderer::addPlayer(AbstractPlayer *player, QPointF position)
 {
-    player->setPos(position);
-    scene.addItem(player);
+    ((Player*)player)->setPos(position);
+    scene.addItem((Player*)player);
 }
 
-void Renderer::createCardAnimation(Card *card)
+void Renderer::createCardAnimation(AbstractCard *card)
 {
-    QPropertyAnimation *anim = new QPropertyAnimation(card, "pos");
+    QPropertyAnimation *anim = new QPropertyAnimation((Card*)card, "pos");
     anim->setDuration(500);
     anim->setEasingCurve(QEasingCurve::InOutSine);
 
     animations[card] = anim;
 }
 
-void Renderer::addCard(Card *card, QPointF position)
+void Renderer::addCard(AbstractCard *card, QPointF position)
 {
-    card->setPos(position);
-    scene.addItem(card);
+    ((Card*)card)->setPos(position);
+    scene.addItem((Card*)card);
     createCardAnimation(card);
 }
 
-void Renderer::moveCard(Card *card, QPointF to)
+void Renderer::moveCard(AbstractCard *card, QPointF to)
 {
     animations[card]->stop();
-    animations[card]->setStartValue(card->pos());
+    animations[card]->setStartValue(((Card*)card)->pos());
     animations[card]->setEndValue(to);
     animations[card]->start();
 }
 
-void Renderer::moveCard(Card *card, QPointF from, QPointF to)
+void Renderer::moveCard(AbstractCard *card, QPointF from, QPointF to)
 {
     animations[card]->stop();
     animations[card]->setStartValue(from);
@@ -49,12 +49,12 @@ void Renderer::moveCard(Card *card, QPointF from, QPointF to)
     animations[card]->start();
 }
 
-void Renderer::beautifulMove(QList<Card *> &cards, QList<QPointF> to)
+void Renderer::beautifulMove(QList<AbstractCard *> *cards, QList<QPointF> to)
 {
     int c = 0;
-    for(int i = 0; i < cards.count(); i++)
+    for(int i = 0; i < cards->count(); i++)
     {
-        Card* card = cards.at(i);
+        AbstractCard* card = cards->at(i);
         if ( animations[card]->group() )
         {
             animations[card]->group()->stop();
@@ -62,11 +62,11 @@ void Renderer::beautifulMove(QList<Card *> &cards, QList<QPointF> to)
             delete animations[card]->group();
         }
 
-        if (card->pos() != to.at(i))
+        if ( ((Card*)card)->pos() != to.at(i) )
         {
             QSequentialAnimationGroup *seq = new QSequentialAnimationGroup();
             seq->addPause( (c++) * 100 );
-            animations[card]->setStartValue(card->pos());
+            animations[card]->setStartValue( ((Card*)card)->pos() );
             animations[card]->setEndValue(to.at(i));
             seq->addAnimation(animations[card]);
             seq->start();
@@ -74,51 +74,51 @@ void Renderer::beautifulMove(QList<Card *> &cards, QList<QPointF> to)
     }
 }
 
-void Renderer::beautifulMove(QList<Card *> &cards, QPointF to)
+void Renderer::beautifulMove(QList<AbstractCard *> *cards, QPointF to)
 {
     QList<QPointF> tmp;
 
-    for(int i=0; i < cards.count(); i++)
+    for(int i=0; i < cards->count(); i++)
         tmp.append(to);
 
     beautifulMove(cards, tmp);
 }
 
-void Renderer::beautifulMove(QStack<Card *> &cards, QPointF to)
+void Renderer::beautifulMove(QStack<AbstractCard *> *cards, QPointF to)
 {
-    QList<Card *> tmpCards;
+    QList<AbstractCard *> tmpCards;
     QList<QPointF> tmpTo;
 
-    foreach(Card *card, cards)
+    foreach(AbstractCard *card, *cards)
     {
         tmpCards.append(card);
         tmpTo.append(to);
     }
 
-    beautifulMove(tmpCards, tmpTo);
+    beautifulMove(&tmpCards, tmpTo);
 }
 
-void Renderer::arrangeCards(QList<Card *>cards, QPointF topCenter)
+void Renderer::arrangeCards(QList<AbstractCard *> *cards, QPointF topCenter)
 {
     const qreal spacing = -25;
     qreal totalWidth = 0;
     QList<QPointF> positions;
 
-    foreach(Card *card, cards)
-        totalWidth += card->width();
-    totalWidth += spacing * (cards.count() - 1);
+    foreach(AbstractCard *card, *cards)
+        totalWidth += card->GetWidth();
+    totalWidth += spacing * (cards->count() - 1);
 
     // leftmost start point
     int x = topCenter.x() - totalWidth / 2;
 
-    for(int i = 0; i < cards.count(); i++)
+    for(int i = 0; i < cards->count(); i++)
     {
-        Card *card = cards.at(i);
+        AbstractCard *card = cards->at(i);
 
-        card->setZValue(-i);
+        ((Card*)card)->setZValue(-i);
         positions.append(QPointF(x, topCenter.y()));
 
-        x += card->width() + spacing;
+        x += card->GetWidth() + spacing;
     }
     beautifulMove(cards, positions);
 }

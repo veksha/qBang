@@ -6,15 +6,18 @@ DEPENDPATH += . \
 INCLUDEPATH += .
 
 # Input
-HEADERS += src/ui/card.h \
+HEADERS += include/plugininterface.h \
+src/pluginsystem.h \
+    src/ui/card.h \
     src/ui/renderer.h \
     src/ui/player.h \
     src/mainwindow.h \
-    src/logic.h
+    src/cardgameengine.h
 FORMS += src/mainwindow.ui
-SOURCES += src/main.cpp \
+SOURCES += src/pluginsystem.cpp \
+    src/main.cpp \
     src/mainwindow.cpp \
-    src/logic.cpp \
+    src/cardgameengine.cpp \
     src/ui/renderer.cpp \
     src/ui/player.cpp
 OTHER_FILES += 
