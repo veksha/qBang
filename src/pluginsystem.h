@@ -13,6 +13,7 @@
 class PluginSystem : public QObject, public PluginSystemInterface
 {
     Q_OBJECT
+    Q_INTERFACES(PluginSystemInterface)
 public:
     QList<PluginInterface *> Plugins;
     QHash<QString, QList<EventHandlerInterface *> > EventHandlersInfo;

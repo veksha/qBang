@@ -2,7 +2,7 @@
 #define QTPLUGIN_H
 
 #include <QtPlugin>
-#include "..//CoreApp//plugininterface.h"
+#include "../include/plugininterface.h"
 
 class QtPlugin : public QObject, PluginInterface, EventHandlerInterface {
     Q_OBJECT
