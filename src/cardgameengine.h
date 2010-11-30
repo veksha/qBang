@@ -8,6 +8,7 @@
 
 #include "ui/renderer.h"
 #include "include/plugininterface.h"
+#include "pluginsystem.h"
 
 const qreal MaxCardHeight = 100;
 
@@ -16,15 +17,16 @@ class CardGameEngine: public QObject, public CardGameEngineInterface
     Q_OBJECT
     Q_INTERFACES(CardGameEngineInterface)
 public:
+    PluginSystem pluginSystem;
+    Renderer *renderer;
+    QList<AbstractPlayer*> players;
+    QHash<QString, AbstractCard*> cards;
+    QStack<AbstractCard*> talon;
+
     CardGameEngine();
     AbstractPlayer* CreatePlayer(const QString &name, const int id);
     void GiveCard(AbstractPlayer *player, AbstractCard* card);
     void SelectCardAt(QPointF &pos);
-    Renderer *renderer;
-
-    QList<AbstractPlayer*> players;
-    QHash<QString, AbstractCard*> cards;
-    QStack<AbstractCard*> talon;
 
 public slots:
     void dealTheCards();

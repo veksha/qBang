@@ -6,7 +6,6 @@
 #include <QMouseEvent>
 
 #include "src/cardgameengine.h"
-#include "pluginsystem.h"
 
 namespace Ui {
     class MainWindow;
@@ -18,8 +17,7 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    PluginSystem pluginSystem;
-    CardGameEngine *engine;
+    CardGameEngine engine;
 
 protected:
     void changeEvent(QEvent *e);
@@ -32,7 +30,6 @@ private:
     QAction *takeAllCardsAct;
 
 public slots:
-    void initializeLogic();
     void onClick(QMouseEvent *);
     void onMouseMove(QMouseEvent *);
 

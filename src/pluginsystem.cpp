@@ -86,4 +86,7 @@ void PluginSystem::SendEvent(Event &event)
         handler->ProcessEvent(event);
 }
 
-
+CardGameEngineInterface* PluginSystem::GetEngine()
+{
+    return NULL;
+}

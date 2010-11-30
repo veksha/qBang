@@ -17,6 +17,7 @@ class PluginSystem : public QObject, public PluginSystemInterface
 public:
     QList<PluginInterface *> Plugins;
     QHash<QString, QList<EventHandlerInterface *> > EventHandlersInfo;
+    
     explicit PluginSystem(QObject *parent = 0);
     PluginInterface *LoadPlugin(const QString &fileName);
     void LoadPlugins(const QString &dirPath);
@@ -25,6 +26,7 @@ public:
     void RegisterEventHandler(const QString &event, EventHandlerInterface *handler);
     void SendEvent(Event &event);
     void Log(const QString &line);
+    CardGameEngineInterface *GetEngine();
 private:
     QPluginLoader loader;
 signals:
