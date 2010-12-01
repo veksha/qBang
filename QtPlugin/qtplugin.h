@@ -19,6 +19,7 @@ public:
     
 protected:
     PluginSystemInterface *m_pluginSystem;
+    CardGameEngineInterface *m_engine;
     QString m_Name;
 };
 

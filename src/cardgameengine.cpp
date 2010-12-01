@@ -2,13 +2,11 @@
 
 CardGameEngine::CardGameEngine(): QObject()
 {
-    pluginSystem.LoadPlugins("../QtPlugin-build-desktop/debug/");
-
     renderer = new Renderer();
     loadCards();
     
-    CreatePlayer("yura", 1)->SetHealth(5);
-    CreatePlayer("vova", 2)->SetHealth(4);
+    pluginSystem.SetEngine(this);
+    pluginSystem.LoadPlugins("../qBang/QtPlugin-build/debug/");
 }
 
 AbstractPlayer* CardGameEngine::CreatePlayer(const QString &name, const int id)

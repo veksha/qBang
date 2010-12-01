@@ -15,10 +15,13 @@ class PluginSystem : public QObject, public PluginSystemInterface
     Q_OBJECT
     Q_INTERFACES(PluginSystemInterface)
 public:
+    CardGameEngineInterface *Engine;
     QList<PluginInterface *> Plugins;
     QHash<QString, QList<EventHandlerInterface *> > EventHandlersInfo;
     
     explicit PluginSystem(QObject *parent = 0);
+    void SetEngine(CardGameEngineInterface* e) { Engine = e; }
+    CardGameEngineInterface *GetEngine() { return Engine; }
     PluginInterface *LoadPlugin(const QString &fileName);
     void LoadPlugins(const QString &dirPath);
     void UnloadPlugin(PluginInterface *plugin);
@@ -26,7 +29,6 @@ public:
     void RegisterEventHandler(const QString &event, EventHandlerInterface *handler);
     void SendEvent(Event &event);
     void Log(const QString &line);
-    CardGameEngineInterface *GetEngine();
 private:
     QPluginLoader loader;
 signals:

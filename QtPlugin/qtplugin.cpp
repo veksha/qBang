@@ -23,8 +23,10 @@ const QObject *QtPlugin::Instance()
 bool QtPlugin::Initialize(PluginSystemInterface *pluginSystem)
 {
     m_pluginSystem = pluginSystem;
+    m_engine = m_pluginSystem->GetEngine();
     
-    Log("hello world!");
+    m_engine->CreatePlayer("yura", 1)->SetHealth(5);
+    m_engine->CreatePlayer("vova", 2)->SetHealth(4);
     
     m_pluginSystem->RegisterEventHandler("Core/GameStarted", this);
     return true;

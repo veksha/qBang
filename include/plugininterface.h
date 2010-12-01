@@ -7,6 +7,7 @@
 
 class PluginInterface;
 class PluginSystemInterface;
+class CardGameEngineInterface;
 
 class PluginInterface
 {
@@ -34,6 +35,7 @@ class PluginSystemInterface
 {
 public:
     virtual ~PluginSystemInterface() {}
+    virtual CardGameEngineInterface *GetEngine() = 0;
     virtual void AppendLog(const QString &line) = 0;
     virtual void RegisterEventHandler(const QString &event, EventHandlerInterface *handler) = 0;
 };
