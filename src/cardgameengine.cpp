@@ -113,26 +113,29 @@ void CardGameEngine::GiveCard(AbstractPlayer *player, AbstractCard* card)
 
 void CardGameEngine::SelectCardAt(QPointF &pos)
 {
-    Q_UNUSED(pos)
-//    QList<QGraphicsItem *> items = renderer->scene.items(pos);
+    QList<QGraphicsItem *> items = renderer->scene.items(pos);
 
-//    foreach (QGraphicsItem *item, items)
-//    {
-//        Card *card = qgraphicsitem_cast<Card *>(item);
-//        if (card)
-//        {
-//            qDebug() << card->GetName();
+    foreach (QGraphicsItem *item, items)
+    {
+        Card *card = qgraphicsitem_cast<Card *>(item);
+        if (card)
+        {
+            qDebug() << card->GetName();
 
-//            // TODO: implement selecting animation
-//            QPointF newPos = QPointF( card->pos().x(), card->pos().y() - 10 );
-//            renderer->moveCard(card, newPos);
-//            break;
-//        }
-//        else
-//        {
-//            qDebug() << "no card";
+            // TODO: implement selecting animation
+            
+            qreal yShift = card->GetSelected() ? -10 : 10 ;
+            QPointF newPos = QPointF( card->GetOncomingPosition().x(),
+                                      card->GetOncomingPosition().y() - yShift );
+            card->SetSelected(!card->GetSelected());
+            renderer->moveCard(card, newPos);
+            break;
+        }
+        else
+        {
+            qDebug() << "no card";
 
-//            // TODO: implement deselecting animation
-//        }
-//    }
+            // TODO: implement deselecting animation
+        }
+    }
 }

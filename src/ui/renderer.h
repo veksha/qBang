@@ -35,9 +35,11 @@ public:
 private:
     void mousePressEvent(QMouseEvent *event) { emit onClick(event); }
     void mouseMoveEvent(QMouseEvent *event) { emit onMouseMove(event); }
+    void mouseDoubleClickEvent(QMouseEvent *event) { emit onMouseDoubleClick(event); }
 signals:
     void onClick(QMouseEvent *event);
     void onMouseMove(QMouseEvent *event);
+    void onMouseDoubleClick(QMouseEvent *event);
 protected:
     void resizeEvent(QResizeEvent *event)
     {

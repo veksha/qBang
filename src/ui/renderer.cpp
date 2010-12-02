@@ -38,6 +38,7 @@ void Renderer::moveCard(AbstractCard *card, QPointF to)
     animations[card]->stop();
     animations[card]->setStartValue(((Card*)card)->pos());
     animations[card]->setEndValue(to);
+    card->SetOncomingPosition(to);
     animations[card]->start();
 }
 
@@ -46,6 +47,7 @@ void Renderer::moveCard(AbstractCard *card, QPointF from, QPointF to)
     animations[card]->stop();
     animations[card]->setStartValue(from);
     animations[card]->setEndValue(to);
+    card->SetOncomingPosition(to);
     animations[card]->start();
 }
 
@@ -69,6 +71,7 @@ void Renderer::beautifulMove(QList<AbstractCard *> *cards, QList<QPointF> to)
             animations[card]->setStartValue( ((Card*)card)->pos() );
             animations[card]->setEndValue(to.at(i));
             seq->addAnimation(animations[card]);
+            card->SetOncomingPosition(to.at(i));
             seq->start();
         }
     }

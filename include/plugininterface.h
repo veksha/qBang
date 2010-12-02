@@ -4,6 +4,7 @@
 #include <QString>
 #include <QObject>
 #include <QPointF>
+#include <QtGui/QPixmap>
 
 class PluginInterface;
 class PluginSystemInterface;
@@ -46,8 +47,16 @@ public:
     virtual ~AbstractCard() {}
     virtual int GetHeight() = 0;
     virtual int GetWidth() = 0;
+    
+    virtual QPointF GetPosition() = 0;
+    virtual QPointF GetOncomingPosition() = 0;
+    virtual void SetOncomingPosition(QPointF value) = 0;
+
+    virtual bool GetSelected() = 0;
+    virtual void SetSelected(bool value) = 0;
 
     virtual QString GetName() = 0;
+    virtual void SetPixmap(const QPixmap& pixmap) = 0;
 };
 
 class AbstractPlayer

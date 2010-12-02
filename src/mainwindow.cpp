@@ -16,6 +16,8 @@ MainWindow::MainWindow(QWidget *parent) :
     
     connect(engine.renderer, SIGNAL(onClick(QMouseEvent*)), this, SLOT(onClick(QMouseEvent*)));
     connect(engine.renderer, SIGNAL(onMouseMove(QMouseEvent*)), this, SLOT(onMouseMove(QMouseEvent*)));
+    connect(engine.renderer, SIGNAL(onMouseDoubleClick(QMouseEvent*)),
+            this, SLOT(onMouseDoubleClick(QMouseEvent*)));
 
     setCentralWidget(engine.renderer);    
 
@@ -55,6 +57,12 @@ void MainWindow::createActions()
 }
 
 void MainWindow::onClick(QMouseEvent * event)
+{
+    QPointF pos = engine.renderer->mapToScene(event->pos());
+    engine.SelectCardAt(pos);
+}
+
+void MainWindow::onMouseDoubleClick(QMouseEvent * event)
 {
     QPointF pos = engine.renderer->mapToScene(event->pos());
     engine.SelectCardAt(pos);
