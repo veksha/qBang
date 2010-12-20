@@ -21,6 +21,12 @@ protected:
     PluginSystemInterface *m_pluginSystem;
     CardGameEngineInterface *m_engine;
     QString m_Name;
+    
+private:
+    void OnGameStart();
+    void OnClick(QPointF &pos);
+    void OnMouseMove(QPointF &pos);
+    void OnDoubleClick(QPointF &pos);
 };
 
 #endif // QTPLUGIN_H

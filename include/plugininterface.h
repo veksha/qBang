@@ -87,7 +87,7 @@ public:
     virtual ~CardGameEngineInterface() {}
     virtual AbstractPlayer* CreatePlayer(const QString &name, const int id) = 0;
     virtual void GiveCard(AbstractPlayer *player, AbstractCard* card) = 0;
-    virtual void SelectCardAt(QPointF &pos) = 0;
+    virtual void SelectDeselectCardAt(QPointF &pos) = 0;
 };
 
 

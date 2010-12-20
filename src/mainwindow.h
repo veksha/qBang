@@ -32,7 +32,7 @@ private:
 public slots:
     void onClick(QMouseEvent *);
     void onMouseMove(QMouseEvent *);
-    void onMouseDoubleClick(QMouseEvent *);
+    void onDoubleClick(QMouseEvent *);
 
 private slots:
     void AppendLog(const QString &line);

@@ -16,8 +16,8 @@ MainWindow::MainWindow(QWidget *parent) :
     
     connect(engine.renderer, SIGNAL(onClick(QMouseEvent*)), this, SLOT(onClick(QMouseEvent*)));
     connect(engine.renderer, SIGNAL(onMouseMove(QMouseEvent*)), this, SLOT(onMouseMove(QMouseEvent*)));
-    connect(engine.renderer, SIGNAL(onMouseDoubleClick(QMouseEvent*)),
-            this, SLOT(onMouseDoubleClick(QMouseEvent*)));
+    connect(engine.renderer, SIGNAL(onDoubleClick(QMouseEvent*)),
+            this, SLOT(onDoubleClick(QMouseEvent*)));
 
     setCentralWidget(engine.renderer);    
 
@@ -54,18 +54,20 @@ void MainWindow::createActions()
     takeAllCardsAct = new QAction("Take all Cards", this);
     connect( takeAllCardsAct, SIGNAL( triggered() ), &engine, SLOT( takeAllCards() ) );
     ui->mainToolBar->addAction(takeAllCardsAct);
+    
+    connect(ui->actionStart, SIGNAL(triggered()), &engine, SLOT(onGameStart()));
 }
 
 void MainWindow::onClick(QMouseEvent * event)
 {
     QPointF pos = engine.renderer->mapToScene(event->pos());
-    engine.SelectCardAt(pos);
+    engine.SelectDeselectCardAt(pos);
 }
 
-void MainWindow::onMouseDoubleClick(QMouseEvent * event)
+void MainWindow::onDoubleClick(QMouseEvent * event)
 {
     QPointF pos = engine.renderer->mapToScene(event->pos());
-    engine.SelectCardAt(pos);
+    engine.SelectDeselectCardAt(pos);
 }
 
 void MainWindow::onMouseMove(QMouseEvent *event)
@@ -75,4 +77,3 @@ void MainWindow::onMouseMove(QMouseEvent *event)
                     .arg(pos.x())
                     .arg(pos.y()) );
 }
-

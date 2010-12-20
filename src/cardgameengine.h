@@ -26,12 +26,16 @@ public:
     CardGameEngine();
     AbstractPlayer* CreatePlayer(const QString &name, const int id);
     void GiveCard(AbstractPlayer *player, AbstractCard* card);
-    void SelectCardAt(QPointF &pos);
+    void SelectDeselectCardAt(QPointF &pos);
 
 public slots:
     void dealTheCards();
     void takeAllCards();
     void shuffleTheTalon();
+    void onGameStart();
+    void onClick(QMouseEvent*);
+    void onMouseMove(QMouseEvent*);
+    void onDoubleClick(QMouseEvent*);
 
 private:
     void loadCards();

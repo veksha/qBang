@@ -3,6 +3,12 @@
 CardGameEngine::CardGameEngine(): QObject()
 {
     renderer = new Renderer();
+    
+    connect(renderer, SIGNAL(onClick(QMouseEvent*)), SLOT(onClick(QMouseEvent*)));
+    connect(renderer, SIGNAL(onMouseMove(QMouseEvent*)), SLOT(onMouseMove(QMouseEvent*)));
+    connect(renderer, SIGNAL(onDoubleClick(QMouseEvent*)),
+            SLOT(onDoubleClick(QMouseEvent*)));
+    
     loadCards();
     
     pluginSystem.SetEngine(this);
@@ -64,6 +70,8 @@ void CardGameEngine::takeAllCards()
 {
     // arrange talon if it's scattered
     renderer->beautifulMove(&talon, QPointF());
+    foreach(AbstractCard* card, talon)
+        card->SetSelected(false);
 
     // take all cards from players
     foreach ( AbstractPlayer *player, players )
@@ -72,6 +80,7 @@ void CardGameEngine::takeAllCards()
         while ( !player->GetCards()->isEmpty() )
         {
             AbstractCard * card = player->TakeLastCard();
+            card->SetSelected(false);
             talon.push( card );
         }
         ((Player*)player)->refreshText();
@@ -111,7 +120,7 @@ void CardGameEngine::GiveCard(AbstractPlayer *player, AbstractCard* card)
     renderer->arrangeCards( player->GetCards(), player->GetCardsPosition() );
 }
 
-void CardGameEngine::SelectCardAt(QPointF &pos)
+void CardGameEngine::SelectDeselectCardAt(QPointF &pos)
 {
     QList<QGraphicsItem *> items = renderer->scene.items(pos);
 
@@ -122,8 +131,6 @@ void CardGameEngine::SelectCardAt(QPointF &pos)
         {
             qDebug() << card->GetName();
 
-            // TODO: implement selecting animation
-            
             qreal yShift = card->GetSelected() ? -10 : 10 ;
             QPointF newPos = QPointF( card->GetOncomingPosition().x(),
                                       card->GetOncomingPosition().y() - yShift );
@@ -134,8 +141,40 @@ void CardGameEngine::SelectCardAt(QPointF &pos)
         else
         {
             qDebug() << "no card";
-
             // TODO: implement deselecting animation
         }
     }
 }
+
+void CardGameEngine::onClick(QMouseEvent* e)
+{
+    Event ev;
+    ev.Name = "Core/Click";
+    ev.Parameters.append( &renderer->mapToScene(e->pos()) );
+    pluginSystem.SendEvent(ev);
+}
+
+void CardGameEngine::onMouseMove(QMouseEvent* e)
+{
+    Event ev;
+    ev.Name = "Core/MouseMove";
+    ev.Parameters.append( &renderer->mapToScene(e->pos()) );
+    pluginSystem.SendEvent(ev);
+}
+
+void CardGameEngine::onDoubleClick(QMouseEvent* e)
+{
+    Event ev;
+    ev.Name = "Core/DoubleClick";
+    ev.Parameters.append( &renderer->mapToScene(e->pos()) );
+    pluginSystem.SendEvent(ev);
+}
+
+void CardGameEngine::onGameStart()
+{
+    Event ev;
+    ev.Name = "Core/GameStart";
+    pluginSystem.SendEvent(ev);
+}
+
+

@@ -74,7 +74,7 @@ void PluginSystem::RegisterEventHandler(const QString &event, EventHandlerInterf
 
 void PluginSystem::Log(const QString &line)
 {
-    AppendLog(QString("PluginSystem:\t%1").arg(line));
+    emit AppendLog(QString("PluginSystem:\t%1").arg(line));
 }
 
 void PluginSystem::SendEvent(Event &event)
